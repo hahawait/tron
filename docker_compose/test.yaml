@@ -1,0 +1,24 @@
+name: wallet
+
+services:
+  test:
+    image: wallet-image
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: wallet-test
+    command: "pytest"
+    # command: "pytest -x -o log_cli=true --log-level=INFO --log-format='%(asctime)s [%(levelname)s] %(message)s' --log-date-format='%H:%M:%S' -v"
+    env_file:
+      - ../.env
+    volumes:
+      - ../tests:/project/tests/
+      - ../pyproject.toml:/project/pyproject.toml
+      - ../uv.lock:/project/uv.lock
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true
+    driver: bridge

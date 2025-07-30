@@ -1,0 +1,20 @@
+name: wallet
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: wallet-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - ../.env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true
+    driver: bridge

@@ -1,0 +1,19 @@
+name: wallet
+
+services:
+  migrations:
+    image: wallet-image
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: wallet-app-migrations
+    command: "alembic upgrade head"
+    env_file:
+      - ../.env
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true
+    driver: bridge

@@ -1,0 +1,21 @@
+name: wallet
+
+services:
+  make_migrations_file:
+    image: wallet-image
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: wallet-app-migrations-file
+    command: "alembic revision --autogenerate -m 'init'"
+    env_file:
+      - ../.env
+    volumes:
+      - ../src:/project/src/
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true
+    driver: bridge
